@@ -31,21 +31,24 @@ In this Capstone Project, I have employed and fine-tuned a pretrained ResNet-50 
 
 ![Resnet50](images/resnet50.png)
 
-Hyperparameters
+**Hyperparameters**
+In this Project, I will employ SageMaker Hyperparameter Tuner to optimize two hyperparameters: `learning rate` and `batch_size`. More details are given in the Machine Learning Pipeline section.
 
-Evaluate the performance of the model
+**Evaluation Metrics**
+The Cross Entropy function is used as the loss function for training and testing themodel, defined as below:
+![CE Loss function](images/CE_loss.png)
 
 ## Machine Learning Pipeline
 To summarize, the ML workflow in the Capstone Project is developed with 3 main steps as below:
 
-###1. Data Preparations:
+### 1. Data Preparations:
 - [Amazon Image Bin Dataset](https://registry.opendata.aws/amazon-bin-imagery/) is fetched from the database `s3://aft-vbi-pds/`.
 - The dataset is split into training, validation and test sets, which are used to fine tune the model in the next step. The split ratio is 60% train, 20% validation and 20% test.
 - The data after preprocessing are uploaed to AWS S3.
 
 ![Upload data to S3](images/S3.png)
 
-###2. Model Training:
+### 2. Model Training:
 - Amazon SageMaker is used to fine tune a pretrained ResNet-50 CNN model. 
 - SageMaker Hyperparameter Tuner is used to optimize the model hyperparameters during the fine tuning process.
 
@@ -70,7 +73,7 @@ Optimal hyperparameters: {'batch_size': 64, 'learning_rate': '0.0076820833914549
 
 **Profiler**: more details on the profiler report can be found in [profiler-report.html](./ProfilerReport/profiler-output/profiler-report.html)
 
-###3. Deploy:
+### 3. Deployment:
 - The fine tuned model with the optimal hyperparameters is then deployed to a SageMaker Endpoint for further testing. 
 
 ![Endpoint](images/endpoint.png)
